@@ -1,0 +1,27 @@
+{
+  "groups": [],
+  "properties": [
+    {
+      "name": "bhp-java-sdk.config.genesis",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "bhp-java-sdk.config.lcd",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "bhp-java-sdk.config.passPhrase",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "bhp-java-sdk.config.path",
+      "type": "java.lang.String",
+      "defaultValue": "44H\/547H\/0H\/0\/0"
+    },
+    {
+      "name": "bhp-java-sdk.config.rpc",
+      "type": "java.lang.String"
+    }
+  ],
+  "hints": []
+}
