@@ -30,8 +30,8 @@ public class SignTest {
 
         JSONObject value = new JSONObject()
                 .fluentPut("amount", jsonArray)
-                .fluentPut("from_address", "bhp1arwh8ddg37fphh732yggmhkgk6gfjc97mckg0d")
-                .fluentPut("to_address", "bhp1pw86qx0mlma5ajl46wjwgn34k3tjr2a7azg4ad");
+                .fluentPut("from_address", "xxx")
+                .fluentPut("to_address", "xxx");
 
 
         JSONObject msg = new JSONObject()
@@ -47,12 +47,12 @@ public class SignTest {
                     .accountNumber("16")
                     .fee(fee)
                     .msg(new JSONArray().fluentAdd(msg))
-                    .privateKey("d47fe557084d7a7a2fe1d4de90385e5cbc0a62b2c5ee1d12f474a0376c958447")
+                    .privateKey("xxx")
                     .sign();
 
             System.out.println("签名后的字符串"+sign);
 
-            assertEquals(sign, "UI2fOBmFYVM53jo0+7zHFHLbhWyuXm4cYhvF4SIyvcNDIFGQk9ew2AvCSCPp4AYkIcUIxKpTV37UXb0bZad9lw==");
+            assertEquals(sign, "xxx");
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
