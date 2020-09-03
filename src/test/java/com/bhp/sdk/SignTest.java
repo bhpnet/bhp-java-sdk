@@ -12,7 +12,7 @@ import java.util.Collections;
 
 import static org.junit.Assert.assertEquals;
 
-public class AccountTransferTest {
+public class SignTest {
 
 //    privateKey:d47fe557084d7a7a2fe1d4de90385e5cbc0a62b2c5ee1d12f474a0376c958447
 //    sign:UI2fOBmFYVM53jo0+7zHFHLbhWyuXm4cYhvF4SIyvcNDIFGQk9ew2AvCSCPp4AYkIcUIxKpTV37UXb0bZad9lw==
