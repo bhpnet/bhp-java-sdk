@@ -77,6 +77,10 @@ public class Crypto {
         return key.getPrivateKeyAsHex();
     }
 
+    public static void main(String[] args) {
+
+    }
+
     public static String generatePrivateKeyFromMnemonic(String mnemonic, String passphrase) {
         return generatePrivateKeyFromMnemonic(mnemonic, BaseConstant.DEFAULT_PATH, passphrase);
     }
