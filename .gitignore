@@ -12,7 +12,6 @@ rebel.xml
 
 logs/
 build/
-target/
 
 # BlueJ files
 *.ctxt
@@ -40,7 +39,7 @@ hs_err_pid*
 out
 gen
 =======
-/target/
+/target/*
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
