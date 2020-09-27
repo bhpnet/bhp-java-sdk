@@ -1,10 +1,10 @@
 "# bhp-java-sdk" 
 ####Create a private key and generate a corresponding public key and address
 ```java
-import com.bhp.sdk.bean.Account;
+import com.bhp.sdk.bean.BhpAccount;
 public class CreateAccount{
     public static void main(String[] args){
-        Account account = Account
+        BhpAccount bhpAccount = BhpAccount
             .createAccount()
             .hasMnemonic(true) //Generate a new mnemonic phrase and generate a corresponding private key and public key and address
             .build(); 
@@ -17,8 +17,6 @@ public class CreateAccount{
 ```java
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.bhp.sdk.bean.Amount;
-import com.bhp.sdk.bean.Fee;
 import com.bhp.sdk.bean.Signer;
 import java.security.NoSuchAlgorithmException;
 import java.util.Collections;

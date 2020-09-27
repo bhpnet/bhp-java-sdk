@@ -5,6 +5,10 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.bhp.sdk.Crypto;
+import com.bhp.sdk.component.Account;
+import com.bhp.sdk.rpc.bean.Fee;
+import com.bhp.sdk.rpc.bean.PubKey;
+import com.bhp.sdk.rpc.bean.Signature;
 import org.apache.commons.lang3.StringUtils;
 
 import java.security.NoSuchAlgorithmException;
@@ -25,6 +29,8 @@ public class Signer {
     private String accountNumber;
     private String sequence;
     private String memo;
+    private String signValue;
+    private String privateKey;
 
     private Signer(Builder builder) {
         this.chainId = builder.chainId;
@@ -33,18 +39,7 @@ public class Signer {
         this.accountNumber = builder.accountNumber;
         this.sequence = builder.sequence;
         this.memo = builder.memo;
-
-    }
-
-    public static Builder createSigner() {
-        return new Builder();
-    }
-
-    private String sign(String privateKey) throws NoSuchAlgorithmException {
-        String value = JSON.toJSONString(this, SerializerFeature.MapSortField);
-        System.out.println("排序后待签名的对象:"+value);
-        byte[] sign = Crypto.sign(value.getBytes(), privateKey);
-        return Base64.getEncoder().encodeToString(sign);
+        this.privateKey = builder.privateKey;
     }
 
     public String getChainId() {
@@ -69,6 +64,33 @@ public class Signer {
 
     public String getMemo() {
         return memo;
+    }
+
+    public static Builder createSigner() {
+        return new Builder();
+    }
+
+
+    private Signer sign() throws NoSuchAlgorithmException {
+        String value = JSON.toJSONString(this, SerializerFeature.MapSortField);
+        System.out.println("排序后待签名的对象:"+value);
+        byte[] sign = Crypto.sign(value.getBytes(), this.privateKey);
+        this.signValue = Base64.getEncoder().encodeToString(sign);
+        return this;
+    }
+
+    public Signature signature( Account account) throws NoSuchAlgorithmException {
+        Signature signature = new Signature();
+        signature.setSequence(this.sequence);
+        signature.setAccountNumber(this.accountNumber);
+        signature.setSignature(this.signValue);
+        PubKey pubKey = new PubKey(PubKey.DEFAULT_TYPE,account.getBase64PublicKey());
+        signature.setPubKey(pubKey);
+        return signature;
+    }
+
+    public String value() {
+        return this.signValue;
     }
 
     public static class Builder {
@@ -120,12 +142,12 @@ public class Signer {
 
         }
 
-        public String sign() throws NoSuchAlgorithmException {
+        public Signer sign() throws NoSuchAlgorithmException {
             if (StringUtils.isBlank(this.privateKey)) {
                 throw new IllegalArgumentException("private key must not be null");
             }
             Signer signer = new Signer(this);
-            return signer.sign(this.privateKey);
+            return signer.sign();
         }
 
     }

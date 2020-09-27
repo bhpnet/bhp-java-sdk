@@ -15,6 +15,7 @@ import java.math.BigInteger;
 import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
 import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.List;
@@ -67,7 +68,7 @@ public class Crypto {
 
     public static String generatePrivateKeyFromMnemonic(String mnemonic, String path,String passphrase) {
         List<String> words = Splitter.on(" ").splitToList(mnemonic);
-        byte[] seed = MnemonicCode.INSTANCE.toSeed(words, passphrase);
+        byte[] seed = MnemonicCode.toSeed(words, passphrase);
         DeterministicKey key = HDKeyDerivation.createMasterPrivateKey(seed);
 //
         List<ChildNumber> childNumbers = HDUtils.parsePath(path);
@@ -78,11 +79,16 @@ public class Crypto {
     }
 
     public static void main(String[] args) {
-
+        String privateKey = generatePrivateKeyFromMnemonic("hurdle whip method slice stadium final roast observe van invest brass feel run cover census cheap cargo input seek addict angry wrestle history tail");
+        System.out.println(privateKey);
+        String pubKey = generatePubKeyHexFromPriv(privateKey);
+        System.out.println(pubKey);
+        String address = generateAddressFromPriv(privateKey, "bhp");
+        System.out.println(address);
     }
 
     public static String generatePrivateKeyFromMnemonic(String mnemonic, String passphrase) {
-        return generatePrivateKeyFromMnemonic(mnemonic, BaseConstant.DEFAULT_PATH, passphrase);
+        return generatePrivateKeyFromMnemonic(mnemonic, BaseConstant.DEFAULT_PASSPHRASE, passphrase);
     }
     public static String generatePrivateKeyFromMnemonic(String mnemonic) {
         return generatePrivateKeyFromMnemonic(mnemonic, BaseConstant.DEFAULT_PASSPHRASE);
@@ -127,7 +133,7 @@ public class Crypto {
     }
 
     public static String generateAddressFromPub(String pubKey) {
-        return generateAddressFromPub(pubKey, BaseConstant.DEFAULT_MAIN_PREFIX);
+        return generateAddressFromPub(pubKey, BaseConstant.DEFAULT_BHP_PREFIX);
     }
 
     public static boolean validPubKey(String pubKey) {

@@ -7,7 +7,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class AddressUtil {
 
-    public static String createNewAddressSecp256k1(String mainPrefix, byte[] publickKey) throws Exception {
+    public static String createNewAddressSecp256k1(String mainPrefix, byte[] publickKey){
         String addressResult = null;
         try {
             byte[] pubKeyHash = sha256Hash(publickKey, 0, publickKey.length);

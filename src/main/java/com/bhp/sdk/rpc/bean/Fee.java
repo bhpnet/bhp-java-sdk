@@ -1,4 +1,4 @@
-package com.bhp.sdk.bean;
+package com.bhp.sdk.rpc.bean;
 
 import java.util.List;
 
@@ -9,6 +9,14 @@ public class Fee {
 
     private String gas;
     private List<Amount> amount;
+
+    @Override
+    public String toString() {
+        return "Fee{" +
+                "gas='" + gas + '\'' +
+                ", amount=" + amount +
+                '}';
+    }
 
     public Fee() {
     }
